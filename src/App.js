@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
+import { addNewActivity } from './actions';
 
-function App() {
+
+function App({ addNewActivity }) {
+  const [state, setState] = useState({
+    title: '',
+    score: '',
+    description: ''
+  })
+
+  const addActivities = () => {
+    const activity = {
+      title: state.title,
+      score: state.score,
+      description: state.description,
+      id: Date.now()
+  }
+  addNewActivity(activity)
+  setState({
+      title: '',
+      score: '',
+      description: '',
+      id: ''
+  })
+  } 
+  const handleChanges = (event) => {
+    event.preventDefault();
+    setState({
+      [event.target.name] : event.target.value
+    })
+  }
+ 
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <form onSubmit={addActivities} name="activity">
+      <input name="title" value={state.title} onChange={handleChanges} placeholder="Title of Activity" />
+      <input name="score" value={state.score} onChange={handleChanges} placeholder="Score from 1-10" />
+      <input name="description" value={state.description} onChange={handleChanges} placeholder="Description" />
+      <button type="submit" value="submit">Submit Activity Log</button>
+    </form>
+  )
 }
 
-export default App;
+export default connect(null, { addNewActivity })(App)
