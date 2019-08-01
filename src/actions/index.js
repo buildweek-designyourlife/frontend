@@ -11,7 +11,6 @@ export const addNewActivity = (newActivity) => {
         payload: newActivity
     }
 }
-
 export const getActivity = () => dispatch => {
     dispatch({
         type: FETCHING_ACTIVITY
