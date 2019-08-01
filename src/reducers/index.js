@@ -3,9 +3,10 @@ import { FETCHING_ACTIVITY, ADD_ACTIVITY_SUCCESS, ADD_ACTIVITY_ERROR } from '../
 const initialState = {
     activities: [
         {
-            title: 'Initial Title',
-            score: 'Initial Score',
-            description: 'Initial Description',
+            name: 'Initial Title',
+            enjoyment: 'Initial Enjoyment',
+            engagement: 'Initial Engagement',
+            notes: 'Initial Description',
             id: 'Initial ID'
         },
     ],
