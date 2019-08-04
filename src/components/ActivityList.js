@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Activity from './Activity';
 
 const ActivityList = props => {
-    console.log("props", props)
     return (
         <div>
             {props.activities.map(activity => {

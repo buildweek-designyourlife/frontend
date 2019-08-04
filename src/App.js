@@ -1,72 +1,67 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from 'react';
+import { Route, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
-import { addNewActivity } from './actions';
 import Login from './components/Login';
 import ActivityList from './components/ActivityList';
 import SignUp from './components/SignUp';
+import ActivityInput from './components/ActivityInput';
+import { Breadcrumb } from 'antd';
 
 
-function App({ addNewActivity }) {
-  const [activity, setActivity] = useState({
-    name: '',
-    enjoyment: '',
-    engagement: '',
-    notes: '',
-    id: ''
-  })
+function App() {
 
-  const addActivities = (event) => {
-    event.preventDefault();
-    const newActivity = {
-      name: activity.name,
-      enjoyment: activity.enjoyment,
-      engagement: activity.engagement,
-      notes: activity.notes,
-      id: Date.now()
-  }
-  addNewActivity(newActivity)
-  setActivity({
-      name: '',
-      enjoyment: '',
-      engagement: '',
-      notes: '',
-      id: ''
-  })
-  } 
-  const handleChanges = (event) => {
-    setActivity({
-      ...activity,
-      [event.target.name] : event.target.value
-    })
-  }
- 
-  console.log("activity", activity)
+  // const checkAuth = () => {
+  //   const token = localStorage.getItem('token');
+  //   const refreshToken = localStorage.getItem('refreshToken');
+  //   if (!token || !refreshToken) {
+  //     return false; 
+  //   }
+  //   try {
+  //     const { exp } = decode(refreshToken)
+  //     if (exp < new Date().getTime() / 1000) {
+  //       return false
+  //     }
+  //   } catch (err) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  // const AuthRoute = ({ component: Component, ...rest }) => (
+  //   <Route {...rest} render={props => (
+  //     checkAuth() ? (
+  //       <Component {...props} />
+  //     ) : (
+  //       <Redirect to={{ pathname: '/login' }} />
+  //     )
+  //   )} />
+  // )
+
   return ( 
     <div>
       <nav>
-      <NavLink to="/">Add Activity</NavLink>
-      <NavLink to="/login">Login</NavLink>
-      <NavLink to="/register">Register</NavLink>
-      <NavLink to="/activitylog">Activity Log</NavLink>
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <NavLink to="/activityinput">Add Activity</NavLink>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <NavLink to="/login">Login</NavLink>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <NavLink to="/register">Register</NavLink>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <NavLink to="/activitylog">Activity Log</NavLink>
+          </Breadcrumb.Item>
+        </Breadcrumb>
       </nav>
-      <Router path="/" />
-      <Router path="/login" component={Login} />
-      <Router path="/register" component={SignUp} />
-      <Router path="/activitylog" component={ActivityList} />    
-      <Login />
-      <SignUp />
-      <form onSubmit={addActivities} name="activity">
-        <input name="name" value={activity.name} onChange={handleChanges} placeholder="Name of Activity" />
-        <input name="enjoyment" value={activity.score} onChange={handleChanges} placeholder="Enjoyment from 1-10" />
-        <input name="engagement" value={activity.score} onChange={handleChanges} placeholder="Engagement from 1-10" />
-        <input name="notes" value={activity.notes} onChange={handleChanges} placeholder="Description" />
-        <button type="submit" value="submit">Submit Activity Log</button>
-      </form>
+
+      <Route path="/activityinput" component={ActivityInput} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={SignUp} />
+      <Route path="/ActivityList" component={ActivityList} />   
     </div>
   )
 }
 
-export default connect(null, { addNewActivity })(App)
+export default App

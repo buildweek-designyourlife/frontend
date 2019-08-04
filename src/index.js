@@ -8,6 +8,7 @@ import { rootReducer } from './reducers';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { BrowserRouter as Router } from 'react-router-dom';
+import 'antd/dist/antd.css';
 
 export const store = createStore(rootReducer, 
     compose(

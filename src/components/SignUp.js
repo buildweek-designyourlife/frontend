@@ -1,14 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { Button, Input, Form, Icon } from 'antd';
 
 const SignUp = (props) => {
-    console.log("signup props", props);
     return (
-        <form>
-            <input name="username" placeholder="Username" />
-            <input name="password" placeholder="Password" />
-            <button>Sign Up</button>
-        </form>
+        <Form layout="inline">
+            <Form.Item>
+                <Input 
+                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} 
+                name="username" 
+                placeholder="Username" />
+            </Form.Item>
+            <Form.Item>
+                <Input 
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} 
+                name="password" 
+                placeholder="Password" />
+            </Form.Item>
+            <Form.Item>
+                <Button 
+                type="primary">Sign Up</Button>
+            </Form.Item>
+        </Form>
     )
 }
 
